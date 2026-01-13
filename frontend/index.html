@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MyToken DApp</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- ethers.js -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+
+  <!-- Custom Tailwind Theme -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          backgroundImage: {
+            'gradient-main': 'linear-gradient(135deg, #667eea, #764ba2)',
+            'card-pattern': 'radial-gradient(circle at top left, rgba(255,255,255,0.08), transparent 60%)'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="min-h-screen bg-gradient-main flex items-center justify-center">
+
+  <div class="relative w-full max-w-md p-6 rounded-2xl bg-gray-900/70 backdrop-blur-xl shadow-2xl border border-white/10 bg-card-pattern">
+
+    <h1 class="text-2xl font-bold text-center text-white mb-4">
+      🪙 MyToken DApp
+    </h1>
+
+    <!-- Status -->
+    <p id="status" class="text-center text-sm text-yellow-300 mb-3"></p>
+
+    <!-- Connect Button -->
+    <button
+      onclick="connectWallet()"
+      class="w-full py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 transition font-semibold text-white shadow-lg">
+      Connect MetaMask
+    </button>
+
+    <!-- Wallet -->
+    <div class="mt-4 text-sm text-gray-300 break-all">
+      <p id="walletAddress"></p>
+    </div>
+
+    <!-- Balance -->
+    <div class="mt-4 p-4 rounded-xl bg-gray-800 border border-gray-700">
+      <p class="text-gray-400">Your Balance</p>
+      <p id="balance" class="text-2xl font-bold text-green-400">0</p>
+    </div>
+
+    <!-- Transfer -->
+    <div class="mt-4 space-y-3">
+      <input id="to"
+        placeholder="Recipient Address"
+        class="w-full p-2 rounded bg-gray-900 border border-gray-700 text-white">
+
+      <input id="amount"
+        placeholder="Amount"
+        class="w-full p-2 rounded bg-gray-900 border border-gray-700 text-white">
+
+      <button
+        onclick="transferTokens()"
+        class="w-full py-2 rounded-xl bg-green-600 hover:bg-green-700 transition text-white font-semibold">
+        Transfer Tokens
+      </button>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
