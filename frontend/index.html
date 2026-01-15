@@ -2,22 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>MyToken DApp</title>
+  <title>Fungible Token Dashboard</title>
 
-  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- ethers.js -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 
-  <!-- Custom Tailwind Theme -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           backgroundImage: {
-            'gradient-main': 'linear-gradient(135deg, #667eea, #764ba2)',
-            'card-pattern': 'radial-gradient(circle at top left, rgba(255,255,255,0.08), transparent 60%)'
+            main: "linear-gradient(135deg,#667eea,#764ba2)"
           }
         }
       }
@@ -25,54 +20,84 @@
   </script>
 </head>
 
-<body class="min-h-screen bg-gradient-main flex items-center justify-center">
+<body class="min-h-screen bg-main flex items-center justify-center px-6 py-8">
 
-  <div class="relative w-full max-w-md p-6 rounded-2xl bg-gray-900/70 backdrop-blur-xl shadow-2xl border border-white/10 bg-card-pattern">
+<div class="w-full max-w-6xl bg-gray-900/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 flex overflow-hidden">
 
-    <h1 class="text-2xl font-bold text-center text-white mb-4">
-      🪙 MyToken DApp
+  <!-- LEFT PANEL -->
+  <div class="w-1/3 px-6 py-4 border-r border-white/10">
+    <h2 class="text-white text-lg font-semibold mb-4">Networks & Balances</h2>
+
+    <button id="addNetworkBtn"
+      class="mb-8 w-full py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold disabled:opacity-50"
+      disabled>
+       Add Another Network
+    </button>
+
+    <ul id="networkList" class="space-y-3 text-sm text-white"></ul>
+
+    <!-- ADD NETWORK FORM -->
+    <div id="addNetworkForm" class="hidden mt-4 bg-gray-800 p-4 rounded-xl space-y-3 z-10">
+      <input id="netName" placeholder="Network Name"
+        class="w-full py-2 px-4 rounded bg-gray-900 border border-gray-700 text-white">
+
+      <input id="netRpc" placeholder="RPC URL"
+        class="w-full py-2 px-4 rounded bg-gray-900 border border-gray-700 text-white">
+
+      <button onclick="addCustomNetwork()"
+        class="w-full py-2 rounded-xl bg-green-600 hover:bg-green-700 font-semibold text-white">
+        Add Network
+      </button>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="w-2/3 px-8 py-6 space-y-5">
+
+    <h1 class="text-2xl font-bold text-white text-center">
+      🌐 Fungible Token Dashboard
     </h1>
 
-    <!-- Status -->
-    <p id="status" class="text-center text-sm text-yellow-300 mb-3"></p>
+    <p id="status" class="text-md text-yellow-300 text-center"></p>
 
-    <!-- Connect Button -->
-    <button
-      onclick="connectWallet()"
-      class="w-full py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 transition font-semibold text-white shadow-lg">
+    <button onclick="connectWallet()"
+      class="w-full py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold">
       Connect MetaMask
     </button>
 
-    <!-- Wallet -->
-    <div class="mt-4 text-sm text-gray-300 break-all">
-      <p id="walletAddress"></p>
+    <!-- CONNECTED INFO -->
+    <div id="walletInfo" class="hidden bg-gray-800 py-2 px-6 rounded-xl border border-gray-700">
+      <p class="text-sm text-gray-400">Network</p>
+      <p id="walletNetwork" class="text-sm text-white mb-2"></p>
+
+      <p class="text-sm text-gray-400">Connected Address</p>
+      <p id="walletAddress" class="text-sm text-white break-all"></p>
     </div>
 
-    <!-- Balance -->
-    <div class="mt-4 p-4 rounded-xl bg-gray-800 border border-gray-700">
-      <p class="text-gray-400">Your Balance</p>
-      <p id="balance" class="text-2xl font-bold text-green-400">0</p>
-    </div>
+    <!-- TRANSFER CARD -->
+    <div id="transferCard" class="hidden bg-gradient-to-br from-gray-800 to-gray-900 px-6 py-3 rounded-2xl border border-gray-700 space-y-3">
+      <h3 class="text-lg font-semibold text-white">Transfer Tokens</h3>
 
-    <!-- Transfer -->
-    <div class="mt-4 space-y-3">
-      <input id="to"
-        placeholder="Recipient Address"
-        class="w-full p-2 rounded bg-gray-900 border border-gray-700 text-white">
+      <input id="tokenAddress" placeholder="Token Contract Address"
+        class="w-full py-2 px-3 rounded-xl bg-gray-900 border border-gray-700 text-white">
 
-      <input id="amount"
-        placeholder="Amount"
-        class="w-full p-2 rounded bg-gray-900 border border-gray-700 text-white">
+      <input id="to" placeholder="Recipient Address"
+        class="w-full py-2 px-3 rounded-xl bg-gray-900 border border-gray-700 text-white">
 
-      <button
-        onclick="transferTokens()"
-        class="w-full py-2 rounded-xl bg-green-600 hover:bg-green-700 transition text-white font-semibold">
+      <input id="amount" placeholder="Amount"
+        class="w-full py-2 px-3 rounded-xl bg-gray-900 border border-gray-700 text-white">
+
+      <button onclick="transferTokens()"
+        class="w-full py-2 rounded-xl bg-green-600 hover:bg-green-700 font-semibold text-white">
         Transfer Tokens
       </button>
+
+      <p id="txStatus" class="text-sm text-yellow-300"></p>
     </div>
 
   </div>
+</div>
 
-  <script src="app.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

@@ -20,7 +20,7 @@ The project uses **pure Solidity for business logic** and **plain HTML + Tailwin
 
 ## 📁 Project Structure
 
-mytoken-dapp/
+fungible-token/
 │
 ├── contracts/
 │ └── MyToken.sol # Solidity smart contract
