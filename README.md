@@ -1,9 +1,8 @@
-# <img src="assets/token_image.png" alt="Token Logo" style="border-radius: 50%; height: 50px;" /> Fungible Token
+# <img src="assets/token_images.png" alt="Token Logo" style="border-radius: 50%; height: 50px;" /> Fungible Token
 
 A minimal **Solidity + HTML + Tailwind CSS decentralized application** that   demonstrates wallet connection and token transfers using a custom ERC-20-like smart contract.
 Built for **hackathons and buildathons**, focusing on clarity, correctness, and on-chain logic.
 
-<br>
 <br>
 
 ## 🚀 Project Overview
@@ -17,12 +16,10 @@ Built for **hackathons and buildathons**, focusing on clarity, correctness, and 
 - Learn core dApp concepts with minimal abstraction  
 
 <br>
-<br>
 
 ## 📸 Screenshot
-<img src="assets/Screenshot.png" alt="App Screenshot" style="height: 250px; width: 200px;" />
+<img src="assets/Screenshot.png" alt="App Screenshot" style="height: 400px; width: 700px;" />
 
-<br>
 <br>
 
 ## 📁 Project Structure
@@ -31,7 +28,7 @@ Built for **hackathons and buildathons**, focusing on clarity, correctness, and 
 fungible-token/
 │
 ├── assets/
-│   ├── token_image.png
+│   ├── token_images.png
 │   └── Screenshot.png
 │
 ├── contracts/
@@ -43,10 +40,8 @@ fungible-token/
 │
 └── README.md
 
-
 ```
 
-<br>
 <br>
 
 ## 🧾 Smart Contract
@@ -63,7 +58,6 @@ fungible-token/
 ⚠️ The smart contract must be deployed before the frontend can interact with it.
 
 <br>
-<br>
 
 ## 🔧 Deployment Options
 
@@ -78,7 +72,6 @@ You can deploy MyToken.sol using:
 
 
 <br>
-<br>
 
 ## 🧪 How to Run the Project
 
@@ -90,7 +83,6 @@ You can deploy MyToken.sol using:
 6. Start interacting with the smart contract
 
 <br>
-<br>
 
 ## 🛠 Tech Stack
 
@@ -100,7 +92,6 @@ You can deploy MyToken.sol using:
 - **Javascript (app.js)** – Blockchain interaction via ethers.js / web3
 - **MetaMask** – Wallet provider  
 
-<br>
 <br>
 
 ## 🏆 Hackathon Ready
@@ -115,7 +106,6 @@ This project follows best practices for:
 - **Clean, minimal, and extensible design**, making it ideal for audits, viva explanations, and future upgrades toward full ERC-20 compliance.
 
 <br>
-<br>
 
 ## 📌 Notes
 
@@ -124,7 +114,6 @@ This project follows best practices for:
 - Only the contract owner can mint new tokens
 - Token transfers are fully on-chain and irreversible
 
-<br>
 <br>
 
 ## 📄 License
