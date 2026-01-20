@@ -1,7 +1,9 @@
-# <img src="assets/token_images.png" alt="Token Logo" style="border-radius: 50%; height: 50px;" /> Fungible Token
+# <img src="assets/token_images.png" alt="Token Logo" style="border-radius: 50%; height: 45px;" /> Fungible Token
 
 A minimal **Solidity + HTML + Tailwind CSS decentralized application** that   demonstrates wallet connection and token transfers using a custom ERC-20-like smart contract.
 Built for **hackathons and buildathons**, focusing on clarity, correctness, and on-chain logic.
+
+**Check live:** https://sundaralok.github.io/Fungible-Token/
 
 <br>
 
