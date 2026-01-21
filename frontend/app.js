@@ -10,6 +10,11 @@ const walletAddressEl = document.getElementById("walletAddress");
 const walletNetworkEl = document.getElementById("walletNetwork");
 const transferCard = document.getElementById("transferCard");
 const txStatus = document.getElementById("txStatus");
+const txHistory = document.getElementById("txHistory");
+const txModal = document.getElementById("txModal");
+const closeModal = document.getElementById("closeModal");
+const modalContent = document.getElementById("modalContent");
+const clearHistoryBtn = document.getElementById("clearHistoryBtn");
 
 // Track added networks (to prevent duplicates)
 const addedNetworks = new Set();
@@ -145,8 +150,77 @@ async function transferTokens() {
 
     await tx.wait();
     txStatus.innerText = "✅ Transfer successful";
+
+    // Save transaction to history
+    const net = await provider.getNetwork();
+    const netName = getNetworkName(net.chainId);
+    saveTx({
+      token: token,
+      to: to,
+      amount: amt,
+      network: netName,
+      time: new Date().toISOString()
+    });
+    renderTxHistory();
   } catch (err) {
     console.error(err);
     txStatus.innerText = "❌ Transfer failed (check contract address & balance)";
   }
 }
+
+// Transaction History Functions
+function saveTx(tx) {
+  const history = JSON.parse(localStorage.getItem('txHistory') || '[]');
+  history.unshift(tx);
+  if (history.length > 5) history.pop();
+  localStorage.setItem('txHistory', JSON.stringify(history));
+}
+
+function renderTxHistory() {
+  const history = JSON.parse(localStorage.getItem('txHistory') || '[]');
+  txHistory.innerHTML = '';
+
+  if (history.length === 0) {
+    txHistory.innerHTML = '<li>No transactions yet</li>';
+    return;
+  }
+
+  history.forEach((tx, index) => {
+    const li = document.createElement('li');
+    li.className = 'cursor-pointer hover:bg-gray-700 p-2 rounded';
+    li.innerHTML = `<span class="text-green-400">${tx.amount}</span> to ${tx.to.slice(0,6)}...${tx.to.slice(-4)}`;
+    li.onclick = () => openModal(tx);
+    txHistory.appendChild(li);
+  });
+}
+
+function openModal(tx) {
+  const txDate = new Date(tx.time);
+  const date = txDate.toLocaleDateString();
+  const time = txDate.toLocaleTimeString([], { hour12: false });
+  const gasFee = '0.001'; // Dummy gas fee for demo
+  modalContent.innerHTML = `
+    <p><strong>Sender:</strong> ${userAddress}</p>
+    <p><strong>Receiver:</strong> ${tx.to}</p>
+    <p><strong>Amount:</strong> ${tx.amount}</p>
+    <p><strong>Gas Fee:</strong> ${gasFee} ETH</p>
+    <p><strong>Date:</strong> ${date}</p>
+    <p><strong>Time:</strong> ${time}</p>
+  `;
+  txModal.classList.remove('hidden');
+}
+
+closeModal.onclick = () => txModal.classList.add('hidden');
+txModal.onclick = (e) => { if (e.target === txModal) txModal.classList.add('hidden'); };
+
+clearHistoryBtn.onclick = () => {
+  localStorage.removeItem('txHistory');
+  renderTxHistory();
+};
+
+// Initialize transaction history on page load
+document.addEventListener('DOMContentLoaded', () => {
+  // Clear any existing dummy data
+  localStorage.removeItem('txHistory');
+  renderTxHistory();
+});
